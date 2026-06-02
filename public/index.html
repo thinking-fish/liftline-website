@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LiftLine — In-lift display for residential buildings</title>
+  <meta name="description" content="A wall-mounted iPad display that lives inside your lift car. Building notices, weather, tube status and adverts on a 24/7 rotating screen." />
+  <meta name="theme-color" content="#0F1B2D" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            display: ['Manrope', 'Inter', 'ui-sans-serif', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#EAFBF8', 100: '#C8F4ED', 200: '#8FE7D9',
+              300: '#52D6C0', 400: '#1FBFA4', 500: '#0E9F88',
+              600: '#0B7E6D', 700: '#0B5F54', 800: '#0D4742', 900: '#0F1B2D',
+            },
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    .grad { background-image: linear-gradient(135deg, #52D6C0 0%, #0B5F54 100%); }
+    .grad-text {
+      background-image: linear-gradient(135deg, #52D6C0 0%, #0E9F88 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased">
+
+  <!-- Header -->
+  <header class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-2.5 select-none">
+      <svg viewBox="0 0 32 32" width="32" height="32" aria-hidden>
+        <defs>
+          <linearGradient id="g" x1="0" y1="1" x2="1" y2="0">
+            <stop offset="0%" stop-color="#52D6C0"/>
+            <stop offset="100%" stop-color="#0B5F54"/>
+          </linearGradient>
+        </defs>
+        <rect x="2"  y="20" width="5" height="10" rx="1.5" fill="url(#g)"/>
+        <rect x="10" y="14" width="5" height="16" rx="1.5" fill="url(#g)"/>
+        <rect x="18" y="8"  width="5" height="22" rx="1.5" fill="url(#g)"/>
+        <rect x="26" y="2"  width="5" height="28" rx="1.5" fill="url(#g)"/>
+      </svg>
+      <span class="font-display font-bold tracking-tight text-xl">LiftLine</span>
+    </a>
+    <nav class="flex items-center gap-1 text-sm">
+      <a href="#how"     class="px-3 py-2 text-slate-300 hover:text-white transition-colors">How it works</a>
+      <a href="#pricing" class="px-3 py-2 text-slate-300 hover:text-white transition-colors">Pricing</a>
+      <a href="#contact" class="px-3 py-2 text-slate-300 hover:text-white transition-colors">Contact</a>
+      <a href="https://app.myliftline.com"
+         class="ml-2 rounded-md bg-brand-500 hover:bg-brand-600 px-3.5 py-2 font-medium text-white transition-colors">
+        Sign in
+      </a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0 -z-10 opacity-30"
+         style="background:radial-gradient(60% 50% at 50% 0%, #0E9F88 0%, transparent 60%);"></div>
+    <div class="max-w-7xl mx-auto px-6 pt-16 pb-24 grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <p class="text-xs tracking-widest uppercase text-brand-300 font-medium">For property managers &amp; developers</p>
+        <h1 class="mt-3 font-display text-5xl md:text-6xl font-extrabold leading-[1.05] tracking-tight">
+          The lift car is<br/>
+          <span class="grad-text">the new noticeboard.</span>
+        </h1>
+        <p class="mt-6 max-w-xl text-lg text-slate-300 leading-relaxed">
+          A wall-mounted iPad screen that lives 24/7 inside your residential
+          lift. Building notices, live weather, tube status, next-train
+          departures and adverts — managed from anywhere through one web
+          admin.
+        </p>
+        <div class="mt-8 flex flex-wrap items-center gap-3">
+          <a href="#contact"
+             class="rounded-md grad px-5 py-3 font-semibold text-white shadow-lg shadow-brand-500/20 hover:opacity-90 transition-opacity">
+            Get a quote
+          </a>
+          <a href="#how"
+             class="rounded-md border border-slate-700 hover:border-brand-400 hover:text-brand-200 px-5 py-3 font-medium text-slate-200 transition-colors">
+            See how it works
+          </a>
+        </div>
+      </div>
+
+      <!-- Mock iPad in the hero -->
+      <div class="relative mx-auto w-full max-w-md">
+        <div class="aspect-[3/4] rounded-[2.5rem] bg-slate-900 border border-slate-700 shadow-2xl shadow-black/60 p-3">
+          <div class="h-full w-full rounded-[1.5rem] bg-brand-900 overflow-hidden flex flex-col">
+            <!-- Header bar -->
+            <div class="flex items-center justify-between px-5 py-3 border-b border-white/5">
+              <div class="flex items-center gap-2">
+                <svg viewBox="0 0 32 32" width="18" height="18">
+                  <rect x="2"  y="20" width="5" height="10" rx="1.5" fill="#52D6C0"/>
+                  <rect x="10" y="14" width="5" height="16" rx="1.5" fill="#52D6C0"/>
+                  <rect x="18" y="8"  width="5" height="22" rx="1.5" fill="#52D6C0"/>
+                  <rect x="26" y="2"  width="5" height="28" rx="1.5" fill="#52D6C0"/>
+                </svg>
+                <span class="text-xs font-semibold tracking-wide">Avantgarde Place</span>
+              </div>
+              <span id="hero-clock" class="text-xs tabular-nums text-slate-300">—</span>
+            </div>
+            <!-- Body -->
+            <div class="flex-1 flex flex-col items-center justify-center text-center p-6">
+              <div class="text-6xl">☀️</div>
+              <div class="mt-3 font-display font-bold text-5xl">17°</div>
+              <div class="text-sm text-slate-300">Bermondsey, London</div>
+              <div class="mt-6 grid grid-cols-5 gap-2 text-[10px] text-slate-300 w-full">
+                <div><div>Mon</div><div class="mt-1 text-base">15°</div></div>
+                <div><div>Tue</div><div class="mt-1 text-base">17°</div></div>
+                <div><div>Wed</div><div class="mt-1 text-base">19°</div></div>
+                <div><div>Thu</div><div class="mt-1 text-base">18°</div></div>
+                <div><div>Fri</div><div class="mt-1 text-base">14°</div></div>
+              </div>
+            </div>
+            <!-- Ticker -->
+            <div class="border-t border-white/5 px-5 py-2.5 bg-black/30 text-[10px] text-brand-300 truncate">
+              GBNews · Bank of England holds rates at 4.5% · Tube: good service on all lines
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature strip -->
+  <section class="border-y border-slate-800 bg-slate-900/40">
+    <div class="max-w-7xl mx-auto px-6 py-12 grid md:grid-cols-4 gap-8">
+      <Feature title="Notices that residents actually read" body="Captive audience: 30 seconds in the lift car beats a poster in the lobby they walk past." />
+      <Feature title="Live weather & TfL" body="Met Office forecast plus underground line status and next-train departures from the nearest station." />
+      <Feature title="Advertise to leaseholders" body="Schedule full-screen adverts between notices. Local businesses pay you, not the other way around." />
+      <Feature title="One admin, every lift" body="Push content to one iPad or every iPad in the estate. Schedule the start and end window per item." />
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section id="how" class="max-w-7xl mx-auto px-6 py-24">
+    <h2 class="font-display text-3xl md:text-4xl font-bold tracking-tight">How it works</h2>
+    <div class="mt-10 grid md:grid-cols-3 gap-6">
+      <Step n="1" title="We supply the iPad" body="Pre-configured Apple iPad on a tamper-resistant wall mount. Powered from the lift car's 13A socket; no internet wiring needed (4G hotspot or building Wi-Fi)." />
+      <Step n="2" title="You activate from the web" body="Six-character code on the kiosk screen, type it into the admin web app and the iPad pairs with your building in seconds." />
+      <Step n="3" title="Schedule content from anywhere" body="Notices, adverts, weather location and tube stations — all configured from a browser. Changes appear on the iPad within a minute." />
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="border-t border-slate-800 bg-slate-900/40">
+    <div class="max-w-7xl mx-auto px-6 py-24">
+      <h2 class="font-display text-3xl md:text-4xl font-bold tracking-tight">Pricing</h2>
+      <p class="mt-3 text-slate-300 max-w-2xl">
+        Flat per-iPad monthly fee, no setup cost during the launch period.
+        Hardware is sold or leased separately at cost.
+      </p>
+      <div class="mt-10 grid md:grid-cols-2 gap-6 max-w-3xl">
+        <Card title="Single lift" price="£29" sub="per iPad / month"
+              features="['1 iPad','All content types','Software updates included','Email support']" />
+        <Card title="Estate" price="£24" sub="per iPad / month, 4+ iPads" highlight
+              features="['Volume discount from the 4th iPad','Shared estate content','Multiple admin users','Priority support']" />
+      </div>
+      <p class="mt-6 text-xs text-slate-500">
+        Hardware: iPad (10th gen, Wi-Fi, 64GB) £329 inc VAT.
+        Wall mount + 4G hotspot from £180 per lift. Installation by your
+        lift engineer or ours.
+      </p>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="max-w-3xl mx-auto px-6 py-24">
+    <h2 class="font-display text-3xl md:text-4xl font-bold tracking-tight">Talk to us</h2>
+    <p class="mt-3 text-slate-300">
+      Drop a few details and Andrew or Claudia will get back within one
+      working day.
+    </p>
+    <form id="contact-form" class="mt-8 grid gap-4">
+      <Field name="name"     label="Your name" />
+      <Field name="email"    label="Email"    type="email" />
+      <Field name="building" label="Building / company (optional)" required="false" />
+      <div>
+        <label for="message" class="block text-sm font-medium text-slate-300 mb-1.5">How can we help?</label>
+        <textarea id="message" name="message" rows="4" required
+                  class="w-full rounded-md bg-slate-900 border-slate-700 focus:border-brand-400 focus:ring-brand-400 text-slate-100 placeholder-slate-500"></textarea>
+      </div>
+      <button type="submit"
+              class="justify-self-start rounded-md grad px-5 py-3 font-semibold text-white shadow-lg shadow-brand-500/20 hover:opacity-90 transition-opacity disabled:opacity-50">
+        Send
+      </button>
+      <p id="contact-status" class="text-sm" aria-live="polite"></p>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800 mt-12">
+    <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col md:flex-row items-start md:items-center gap-4 text-sm text-slate-500">
+      <div class="flex items-center gap-2">
+        <svg viewBox="0 0 32 32" width="20" height="20" aria-hidden>
+          <rect x="2"  y="20" width="5" height="10" rx="1.5" fill="#52D6C0"/>
+          <rect x="10" y="14" width="5" height="16" rx="1.5" fill="#52D6C0"/>
+          <rect x="18" y="8"  width="5" height="22" rx="1.5" fill="#52D6C0"/>
+          <rect x="26" y="2"  width="5" height="28" rx="1.5" fill="#52D6C0"/>
+        </svg>
+        <span>LiftLine</span>
+      </div>
+      <div class="md:ml-auto">© <span id="year">2026</span> Thinking Fish Ltd · <a class="hover:text-slate-300 transition-colors" href="/privacy.html">Privacy</a></div>
+    </div>
+  </footer>
+
+  <!-- Custom-tag substitutes via tiny template helpers. Keeps the
+       markup readable without a build step. -->
+  <script>
+    // <Feature> / <Step> / <Card> / <Field> are not actually real
+    // custom elements — they're transformed at runtime so the page
+    // template stays readable above. Done in vanilla JS so we
+    // continue not to need a build pipeline.
+    const reTag = (name, render) => {
+      document.querySelectorAll(name).forEach(el => {
+        const attrs = {};
+        for (const a of el.attributes) attrs[a.name] = a.value;
+        // Pull "features" prop out of JSX-ish syntax if present.
+        if (attrs.features) {
+          try { attrs.features = JSON.parse(attrs.features.replace(/'/g, '"')); }
+          catch { attrs.features = []; }
+        }
+        const html = render(attrs);
+        el.outerHTML = html;
+      });
+    };
+
+    reTag('Feature', ({title, body}) => `
+      <div>
+        <div class="text-brand-300 text-xs font-medium tracking-wider uppercase">${title.split(' ')[0]}</div>
+        <h3 class="mt-2 font-display text-lg font-semibold">${title}</h3>
+        <p class="mt-2 text-sm text-slate-400 leading-relaxed">${body}</p>
+      </div>`);
+
+    reTag('Step', ({n, title, body}) => `
+      <div class="rounded-xl border border-slate-800 bg-slate-900/60 p-6">
+        <div class="grad text-white inline-flex items-center justify-center w-8 h-8 rounded-md font-display font-bold text-sm">${n}</div>
+        <h3 class="mt-4 font-display text-lg font-semibold">${title}</h3>
+        <p class="mt-2 text-sm text-slate-400 leading-relaxed">${body}</p>
+      </div>`);
+
+    reTag('Card', (a) => `
+      <div class="rounded-xl border ${a.highlight !== undefined ? 'border-brand-500/60' : 'border-slate-800'} bg-slate-900/60 p-6">
+        <div class="flex items-baseline gap-2">
+          <h3 class="font-display text-xl font-semibold">${a.title}</h3>
+          ${a.highlight !== undefined ? '<span class="ml-auto text-[10px] uppercase tracking-widest text-brand-300">Most popular</span>' : ''}
+        </div>
+        <div class="mt-4 flex items-baseline gap-1">
+          <span class="font-display text-4xl font-extrabold">${a.price}</span>
+          <span class="text-sm text-slate-400">${a.sub}</span>
+        </div>
+        <ul class="mt-5 space-y-2 text-sm text-slate-300">
+          ${(a.features||[]).map(f => '<li class="flex gap-2"><span class="text-brand-300">✓</span><span>'+f+'</span></li>').join('')}
+        </ul>
+      </div>`);
+
+    reTag('Field', (a) => `
+      <div>
+        <label for="${a.name}" class="block text-sm font-medium text-slate-300 mb-1.5">${a.label}</label>
+        <input id="${a.name}" name="${a.name}" type="${a.type || 'text'}"
+               ${a.required === 'false' ? '' : 'required'}
+               class="w-full rounded-md bg-slate-900 border-slate-700 focus:border-brand-400 focus:ring-brand-400 text-slate-100 placeholder-slate-500" />
+      </div>`);
+
+    // Clock in the hero iPad mock.
+    const clock = document.getElementById('hero-clock');
+    if (clock) {
+      const tick = () => {
+        const d = new Date();
+        const hh = String(d.getHours()).padStart(2, '0');
+        const mm = String(d.getMinutes()).padStart(2, '0');
+        clock.textContent = `${hh}:${mm}`;
+      };
+      tick(); setInterval(tick, 30_000);
+    }
+
+    document.getElementById('year').textContent = String(new Date().getFullYear());
+
+    // Contact form — POSTs to the Worker which forwards to Telegram.
+    const form = document.getElementById('contact-form');
+    const status = document.getElementById('contact-status');
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      status.textContent = 'Sending…';
+      status.className = 'text-sm text-slate-400';
+      const data = Object.fromEntries(new FormData(form).entries());
+      try {
+        const res = await fetch('/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+        const j = await res.json().catch(() => ({}));
+        if (res.ok && j.ok) {
+          status.textContent = 'Thanks — we\'ll come back to you within a working day.';
+          status.className = 'text-sm text-emerald-300';
+          form.reset();
+        } else {
+          throw new Error(j.error || 'send failed');
+        }
+      } catch (err) {
+        status.textContent = 'Sorry, that didn\'t go through. Email andrew@thinking.fish instead?';
+        status.className = 'text-sm text-rose-300';
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+name = "liftline-marketing"
+main = "worker.js"
+compatibility_date = "2026-05-23"
+account_id = "5d74c403a83e29a7a7a39b0bdde7ea9c"
+
+# Custom domains are wired via the Cloudflare dashboard once the
+# Worker is deployed — myliftline.com (apex) + www.myliftline.com.
+
+[assets]
+directory = "public"
+binding = "ASSETS"
+not_found_handling = "404-page"
+
+[observability]
+enabled = true

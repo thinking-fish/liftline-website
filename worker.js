@@ -25,20 +25,25 @@ async function handleContact(request, env) {
   } catch {
     return json({ ok: false, error: 'BAD_JSON' }, 400);
   }
-  const { name, email, building, message } = body ?? {};
+  // The new design form has Name / Email / Phone / Details — `building`
+  // is kept for backwards-compat with anyone still posting the old shape.
+  const { name, email, phone, building, message } = body ?? {};
 
-  // Light validation — names should be human-typeable, the email
-  // should look like an email, the message should be non-empty and
-  // short enough to avoid being abused as a spam relay.
+  // Light validation — names should be human-typeable, the email should
+  // look like an email, the message should be non-empty and short enough
+  // to avoid being abused as a spam relay. Phone is optional and only
+  // checked for length when supplied.
   if (!isShortString(name, 1, 80) ||
       !isShortString(email, 5, 254) || !email.includes('@') ||
-      !isShortString(message, 1, 2000)) {
+      !isShortString(message, 1, 2000) ||
+      (phone && !isShortString(phone, 0, 40))) {
     return json({ ok: false, error: 'BAD_INPUT' }, 400);
   }
 
   const text =
     `📡 *LiftLine enquiry*\n\n` +
     `*From:* ${escape(name)} (${escape(email)})\n` +
+    (phone ? `*Phone:* ${escape(phone)}\n` : '') +
     (building ? `*Building:* ${escape(building)}\n` : '') +
     `\n${escape(message)}`;
 

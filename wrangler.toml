@@ -1,4 +1,4 @@
-name = "liftline-marketing"
+name = "liftline-website"
 main = "worker.js"
 compatibility_date = "2026-05-23"
 account_id = "5d74c403a83e29a7a7a39b0bdde7ea9c"

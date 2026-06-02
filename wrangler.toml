@@ -3,8 +3,12 @@ main = "worker.js"
 compatibility_date = "2026-05-23"
 account_id = "5d74c403a83e29a7a7a39b0bdde7ea9c"
 
-# Custom domains are wired via the Cloudflare dashboard once the
-# Worker is deployed — myliftline.com (apex) + www.myliftline.com.
+# Custom Domains — CF manages TLS + DNS; the AAAA `100::` placeholders
+# the zone shipped with get superseded automatically when these bind.
+routes = [
+  { pattern = "www.myliftline.com", custom_domain = true },
+  { pattern = "myliftline.com",     custom_domain = true },
+]
 
 [assets]
 directory = "public"

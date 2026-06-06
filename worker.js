@@ -48,21 +48,34 @@ async function handleContact(request, env) {
     `\n${escape(message)}`;
 
   // Best-effort forward. If Telegram is unreachable we still tell
-  // the user "thanks" — beats a 500 page on a marketing form.
-  try {
-    await fetch(
-      `https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          chat_id: env.TELEGRAM_CHAT_ID,
-          text,
-          parse_mode: 'MarkdownV2',
-        }),
-      },
-    );
-  } catch {}
+  // the user "thanks" — beats a 500 page on a marketing form. But log
+  // any non-OK response or thrown error so we can see in the Workers
+  // dashboard observability why an enquiry didn't land on the phone
+  // (silent failures here had us losing leads).
+  if (env.TELEGRAM_BOT_TOKEN && env.TELEGRAM_CHAT_ID) {
+    try {
+      const tg = await fetch(
+        `https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: env.TELEGRAM_CHAT_ID,
+            text,
+            parse_mode: 'MarkdownV2',
+          }),
+        },
+      );
+      if (!tg.ok) {
+        const body = await tg.text();
+        console.error(`Telegram sendMessage failed: HTTP ${tg.status} ${body}`);
+      }
+    } catch (e) {
+      console.error(`Telegram sendMessage threw: ${e.message}`);
+    }
+  } else {
+    console.error('Telegram secrets missing — TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID not bound');
+  }
 
   return json({ ok: true });
 }

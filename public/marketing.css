@@ -592,6 +592,13 @@ a { color: inherit; text-decoration: none; }
 .modal__sub { margin-top: 12px; color: var(--m-dim); font-size: 17px; }
 
 .enq { display: flex; flex-direction: column; gap: 18px; }
+
+/* The form's display:flex above (and any future block on .enq__success) wins
+   over the browser's default [hidden]{display:none} rule, which left both the
+   form AND the success state visible after submit. Force-hide when the JS sets
+   the hidden attribute. */
+.enq[hidden],
+.enq__success[hidden] { display: none !important; }
 .enq__row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 .enq__field { display: flex; flex-direction: column; gap: 8px; }
 .enq__label { font-size: 14px; font-weight: 700; color: var(--m-ink-2); letter-spacing: -0.01em; }

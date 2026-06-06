@@ -40,12 +40,17 @@ async function handleContact(request, env) {
     return json({ ok: false, error: 'BAD_INPUT' }, 400);
   }
 
+  // Plain text — we used to send MarkdownV2 with the user fields escape()d,
+  // but the surrounding template literal had unescaped `(` / `)` around the
+  // email, which Telegram rejected with HTTP 400 ("Character '(' is reserved
+  // and must be escaped"). That dropped every enquiry on the floor silently.
+  // Plain text has no parsing surface to trip over.
   const text =
-    `📡 *LiftLine enquiry*\n\n` +
-    `*From:* ${escape(name)} (${escape(email)})\n` +
-    (phone ? `*Phone:* ${escape(phone)}\n` : '') +
-    (building ? `*Building:* ${escape(building)}\n` : '') +
-    `\n${escape(message)}`;
+    `📡 LiftLine enquiry\n\n` +
+    `From: ${name} <${email}>\n` +
+    (phone ? `Phone: ${phone}\n` : '') +
+    (building ? `Building: ${building}\n` : '') +
+    `\n${message}`;
 
   // Best-effort forward. If Telegram is unreachable we still tell
   // the user "thanks" — beats a 500 page on a marketing form. But log
@@ -62,7 +67,6 @@ async function handleContact(request, env) {
           body: JSON.stringify({
             chat_id: env.TELEGRAM_CHAT_ID,
             text,
-            parse_mode: 'MarkdownV2',
           }),
         },
       );
@@ -82,12 +86,6 @@ async function handleContact(request, env) {
 
 function isShortString(v, min, max) {
   return typeof v === 'string' && v.trim().length >= min && v.length <= max;
-}
-
-// Telegram MarkdownV2 escapes — let user content through without
-// breaking the formatting of the surrounding template.
-function escape(s) {
-  return String(s).replace(/[_*[\]()~`>#+=|{}.!\\-]/g, (c) => `\\${c}`);
 }
 
 function json(obj, status = 200) {

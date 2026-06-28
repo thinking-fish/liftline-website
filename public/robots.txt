@@ -1,0 +1,5 @@
+# LiftLine — myliftline.com
+User-agent: *
+Allow: /
+
+Sitemap: https://myliftline.com/sitemap.xml

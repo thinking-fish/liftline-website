@@ -9,12 +9,26 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
+    // The enquiry endpoint must work on whatever host the page was served
+    // from (a 301 would drop the POST body), so handle it before canonicalising.
     if (url.pathname === '/contact' && request.method === 'POST') {
       return handleContact(request, env);
     }
 
-    // Everything else: static files in ./public.
-    return env.ASSETS.fetch(request);
+    // Canonicalise to https + apex (non-www) so search engines see one site,
+    // not three. http:// and https://www. → 301 https://myliftline.com/…
+    if (url.protocol === 'http:' || url.hostname.startsWith('www.')) {
+      url.protocol = 'https:';
+      url.hostname = 'myliftline.com';
+      return Response.redirect(url.toString(), 301);
+    }
+
+    // Everything else: static files in ./public, with HSTS so browsers pin
+    // https after the first visit.
+    const res = await env.ASSETS.fetch(request);
+    const out = new Response(res.body, res);
+    out.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+    return out;
   },
 };
 

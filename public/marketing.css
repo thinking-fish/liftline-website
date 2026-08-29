@@ -113,7 +113,10 @@ a { color: inherit; text-decoration: none; }
   gap: 24px;
 }
 .nav__brand { display: flex; align-items: center; gap: 12px; }
-.nav__brand svg { width: 40px; height: 40px; }
+/* Andrew's supplied logo — mark and wordmark in ONE image, so the
+   drawn bars and the .nav__word span are both gone. Sized by height;
+   the artwork is 580x180 and must not be stretched. */
+.nav__brand img { height: 34px; width: auto; display: block; }
 .nav__word {
   font-weight: 800;
   font-size: 26px;
@@ -532,7 +535,7 @@ a { color: inherit; text-decoration: none; }
   flex-wrap: wrap;
 }
 .footer__brand { display: flex; align-items: center; gap: 12px; color: #fff; }
-.footer__brand svg { width: 34px; height: 34px; }
+.footer__brand img { height: 30px; width: auto; display: block; }
 .footer__brand span { font-weight: 800; font-size: 22px; letter-spacing: -0.02em; }
 .footer__links { display: flex; gap: 26px; font-size: 15px; }
 .footer__links a:hover { color: #fff; }
